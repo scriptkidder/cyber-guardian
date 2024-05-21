@@ -149,7 +149,7 @@
 
        function trackRequest(rid) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://localhost:5000/fetch_status?RID=' + encodeURIComponent(rid), true);
+    xhr.open('GET', 'http://127.0.0.1:8000/status?RID=' + encodeURIComponent(rid), true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
