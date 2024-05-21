@@ -129,7 +129,8 @@
         <div class="statusItem completed">Received</div>
     </div>
     <form id="trackForm">
-        <label for="RId">Enter Request ID (RID):</label>
+        
+      <label for="RId">Enter Request ID (RID):</label>
         <input type="text" id="RId" name="RID" placeholder="e.g., RID-20240503153000">
         <button type="submit">Track</button>
     </form>
@@ -138,38 +139,78 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var trackForm = document.getElementById('trackForm');
-            trackForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                var rid = document.getElementById('RId').value;
-                trackRequest(rid);
-            });
-        });
+       document.getElementById("trackForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const rid = document.getElementById("RId").value;
 
-        function trackRequest(rid) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', 'http://127.0.0.1:8000/fetch_status?RID=' + encodeURIComponent(rid), true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        try {
-                            var response = JSON.parse(xhr.responseText);
-                            var status = response.status;
-                            document.getElementById('Rstatus').textContent = status;
-                        } catch (error) {
-                            console.error('Error parsing response:', error);
-                        }
-                    } else {
-                        console.error('Error:', xhr.status, xhr.statusText);
-                    }
-                }
-            };
-            xhr.onerror = function() {
-                console.error('Network error occurred');
-            };
-            xhr.send();
+    // Send request to server to fetch status
+    fetch("http://127.0.0.1:8000/fetch_status?RID=<rid>" + encodeURIComponent(rid))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch status");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update UI with status
+            const statusElement = document.getElementById("Rstatus");
+            if (data.status) {
+                statusElement.textContent = data.status;
+                statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+                statusElement.classList.add(data.status.toLowerCase());
+            } else {
+                console.error("Status information is undefined");
+                statusElement.textContent = "Error: Status information is unavailable.";
+                statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+                statusElement.classList.add("error");
+            }
+
+            const firstStatusElement = document.querySelector("#statusContainer .statusItem:first-child");
+            const currentStatusElement = document.querySelector(".statusItem.active");
+            const newStatusElement = data.status ? document.querySelector(".statusItem." + data.status.toLowerCase()) : null;
+
+            if (currentStatusElement && newStatusElement && currentStatusElement !== newStatusElement) {
+                flickerDottedLine(firstStatusElement.nextElementSibling, newStatusElement.nextElementSibling);
+            }
+
+            document.querySelectorAll(".statusItem").forEach(item => {
+                item.classList.remove("active");
+            });
+
+            if (newStatusElement) {
+                newStatusElement.classList.add("active");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching status:", error);
+            const statusElement = document.getElementById("Rstatus");
+            statusElement.textContent = "Error fetching status";
+            statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+            statusElement.classList.add("error");
+        });
+});
+
+function flickerDottedLine(startLine, endLine) {
+    if (!startLine || !endLine) return;
+
+    let line = startLine;
+    const flickerInterval = setInterval(() => {
+        line.style.borderStyle = "dotted";
+        line.style.borderColor = "yellow";
+
+        setTimeout(() => {
+            line.style.borderStyle = "solid";
+            line.style.borderColor = "#003366";
+        }, 500); // Adjust flicker duration as desired
+
+        if (line === endLine) {
+            clearInterval(flickerInterval);
+        } else {
+            line = line.nextElementSibling;
         }
+    }, 1000); // Adjust flicker speed as desired
+}
+
     </script>
 </body>
 </html>
