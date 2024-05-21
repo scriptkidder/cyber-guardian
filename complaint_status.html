@@ -153,7 +153,7 @@
         <button type="submit">Track</button>
     </form>
     <div id="statusInfo">
-        <p>Status: <span id="status"></span></p>
+        <p>Status: <span id="Status"></span></p>
     </div>
 
     <script>
@@ -176,7 +176,7 @@
                     const newStatusElement = document.querySelector(".statusItem." + data.status.toLowerCase());
 
                     // Update status text
-                    const statusElement = document.getElementById("status");
+                    const statusElement = document.getElementById("Status");
                     statusElement.textContent = data.status;
                     statusElement.style.color = data.status === "Received" ? "green" : "red";
 
