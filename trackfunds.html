@@ -143,13 +143,13 @@
             trackForm.addEventListener('submit', function(event) {
                 event.preventDefault();
                 var rid = document.getElementById('RID').value;
-                trackRequest(RID);
+                trackRequest(rid);
             });
         });
 
        function trackRequest(rid) {
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/fetch_status?RID=' + encodeURIComponent(rid), true);
+    xhr.open('GET', 'http://localhost:5000/fetch_status?RID=' + encodeURIComponent(rid), true);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
