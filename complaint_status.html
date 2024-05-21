@@ -159,10 +159,10 @@
     <script>
         document.getElementById("trackForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            const complaintId = document.getElementById("complaintId").value;
+            const complaintId = document.getElementById("Complaint Id").value;
 
             // Send request to server to fetch status
-            fetch("http://localhost:8000/status?id=" + complaintId)
+            fetch("http://localhost:8000/status?id=" + Complaint Id)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("Failed to fetch status");
