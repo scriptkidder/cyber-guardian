@@ -157,62 +157,77 @@
     </div>
 
     <script>
-        document.getElementById("trackForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            const complaintId = document.getElementById("Complaint Id").value;
+       
+           document.getElementById("trackForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const complaintId = document.getElementById("complaintId").value;
 
-            // Send request to server to fetch status
-            fetch("http://localhost:8000/status?id=" + Complaint Id)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Failed to fetch status");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    // Update UI with status
-                    const firstStatusElement = document.querySelector("#statusContainer .statusItem:first-child");
-                    const currentStatusElement = document.querySelector(".statusItem.active");
-                    const newStatusElement = document.querySelector(".statusItem." + data.status.toLowerCase());
+    // Send request to server to fetch status
+    fetch("http://localhost:8000/status?id=" + complaintId)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to fetch status");
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Update UI with status
+            const statusElement = document.getElementById("status");
+            if (data.status) {
+                statusElement.textContent = data.status;
+                statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+                statusElement.classList.add(data.status.toLowerCase());
+            } else {
+                console.error("Status information is undefined");
+                statusElement.textContent = "Error: Status information is unavailable.";
+                statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+                statusElement.classList.add("error");
+            }
 
-                    // Update status text
-                    const statusElement = document.getElementById("Status");
-                    statusElement.textContent = data.status;
-                    statusElement.style.color = data.status === "Received" ? "green" : "red";
+            const firstStatusElement = document.querySelector("#statusContainer .statusItem:first-child");
+            const currentStatusElement = document.querySelector(".statusItem.active");
+            const newStatusElement = document.querySelector(".statusItem." + (data.status ? data.status.toLowerCase() : ""));
 
-                    if (currentStatusElement && newStatusElement && currentStatusElement !== newStatusElement) {
-                        flickerDottedLine(firstStatusElement.nextElementSibling, newStatusElement.nextElementSibling);
-                    }
+            if (currentStatusElement && newStatusElement && currentStatusElement !== newStatusElement) {
+                flickerDottedLine(firstStatusElement.nextElementSibling, newStatusElement.nextElementSibling);
+            }
 
-                    document.querySelectorAll(".statusItem").forEach(item => {
-                        item.classList.remove("active");
-                    });
+            document.querySelectorAll(".statusItem").forEach(item => {
+                item.classList.remove("active");
+            });
 
-                    newStatusElement.classList.add("active");
-                })
-                .catch(error => {
-                    console.error("Error fetching status:", error);
-                });
+            if (newStatusElement) {
+                newStatusElement.classList.add("active");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching status:", error);
+            const statusElement = document.getElementById("status");
+            statusElement.textContent = "Error fetching status";
+            statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
+            statusElement.classList.add("error");
         });
+});
 
-        function flickerDottedLine(startLine, endLine) {
-            let line = startLine;
-            const flickerInterval = setInterval(() => {
-                line.style.borderStyle = "dotted";
-                line.style.borderColor = "yellow";
+function flickerDottedLine(startLine, endLine) {
+    let line = startLine;
+    const flickerInterval = setInterval(() => {
+        line.style.borderStyle = "dotted";
+        line.style.borderColor = "yellow";
 
-                setTimeout(() => {
-                    line.style.borderStyle = "solid";
-                    line.style.borderColor = "#003366";
-                }, 500); // Adjust flicker duration as desired
+        setTimeout(() => {
+            line.style.borderStyle = "solid";
+            line.style.borderColor = "#003366";
+        }, 500); // Adjust flicker duration as desired
 
-                if (line === endLine) {
-                    clearInterval(flickerInterval);
-                } else {
-                    line = line.nextElementSibling;
-                }
-            }, 1000); // Adjust flicker speed as desired
+        if (line === endLine) {
+            clearInterval(flickerInterval);
+        } else {
+            line = line.nextElementSibling;
         }
+    }, 1000); // Adjust flicker speed as desired
+}
+
     </script>
 </body>
 </html>
