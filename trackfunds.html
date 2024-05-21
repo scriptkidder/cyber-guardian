@@ -126,7 +126,7 @@
         <div class="statusLine"></div>
         <div class="statusItem approved">Approved</div>
         <div class="statusLine"></div>
-        <div class="statusItem completed">received</div>
+        <div class="statusItem completed">Received</div>
     </div>
     <form id="trackForm">
         <label for="RId">Enter Request ID (RID):</label>
@@ -138,39 +138,38 @@
     </div>
 
     <script>
-       document.addEventListener('DOMContentLoaded', function() {
-    var trackForm = document.getElementById('trackForm');
-    trackForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        var rid = document.getElementById('RID').value;
-        trackRequest(rid);
-    });
-});
+        document.addEventListener('DOMContentLoaded', function() {
+            var trackForm = document.getElementById('trackForm');
+            trackForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                var rid = document.getElementById('RId').value;
+                trackRequest(rid);
+            });
+        });
 
-function trackRequest(rid) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'http://127.0.0.1:8000/fetch_status?RID=${rid}' + encodeURIComponent(rid), true);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                try {
-                    var response = JSON.parse(xhr.responseText);
-                    var status = response.status;
-                    document.getElementById('Rstatus').textContent = status;
-                } catch (error) {
-                    console.error('Error parsing response:', error);
+        function trackRequest(rid) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://127.0.0.1:8000/fetch_status?RID=' + encodeURIComponent(rid), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        try {
+                            var response = JSON.parse(xhr.responseText);
+                            var status = response.status;
+                            document.getElementById('Rstatus').textContent = status;
+                        } catch (error) {
+                            console.error('Error parsing response:', error);
+                        }
+                    } else {
+                        console.error('Error:', xhr.status, xhr.statusText);
+                    }
                 }
-            } else {
-                console.error('Error:', xhr.status, xhr.statusText);
-            }
+            };
+            xhr.onerror = function() {
+                console.error('Network error occurred');
+            };
+            xhr.send();
         }
-    };
-    xhr.onerror = function() {
-        console.error('Network error occurred');
-    };
-    xhr.send();
-}
-
     </script>
 </body>
 </html>
