@@ -107,15 +107,15 @@
 <body>
     <h1>Recovery of Funds Tracker</h1>
     <div id="statusContainer">
-        <div class="statusItem received">Received</div>
-        <div class="statusLine"></div>
-        <div class="statusItem processing">Processing</div>
-        <div class="statusLine"></div>
-        <div class="statusItem reviewing">Reviewing</div>
-        <div class="statusLine"></div>
-        <div class="statusItem approved">Approved</div>
-        <div class="statusLine"></div>
-        <div class="statusItem completed">received</div>
+        <!-- Status items here -->
+    </div>
+    <form id="trackForm">
+        <label for="rid">Enter Request ID:</label>
+        <input type="text" id="rid" name="RID" placeholder="e.g., RID-20240503153000">
+        <button type="submit">Track</button>
+    </form>
+    <div id="statusInfo">
+        <p>Status: <span id="status"></span></p>
     </div>
     <form id="trackForm">
         <label for="complaintId">Enter Request ID:</label>
@@ -132,7 +132,7 @@
             var trackForm = document.getElementById('trackForm');
             trackForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                var rid = document.getElementById('RId').value;
+                var rid = document.getElementById('rid').value;
                 trackRequest(rid);
             });
         });
