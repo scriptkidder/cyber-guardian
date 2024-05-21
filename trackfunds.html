@@ -147,23 +147,22 @@
             });
         });
 
-        function trackRequest(rid) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/status?RID=' + encodeURIComponent(rid), true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        var response = JSON.parse(xhr.responseText);
-                        var status = response.status; // Corrected property name
-                        document.getElementById('status').textContent = status;
-                    } else {
-                        console.error('Error:', xhr.statusText);
-                        document.getElementById('status').textContent = 'Error fetching status';
-                    }
-                }
-            };
-            xhr.send();
+       function trackRequest(rid) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/fetch_status?RID=' + encodeURIComponent(rid), true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                var status = response.status;
+                document.getElementById('status').textContent = status;
+            } else {
+                console.error('Error:', xhr.statusText);
+            }
         }
+    };
+    xhr.send();
+}
     </script>
 </body>
 </html>
