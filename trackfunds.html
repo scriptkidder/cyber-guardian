@@ -134,11 +134,11 @@
         <button type="submit">Track</button>
     </form>
     <div id="statusInfo">
-        <p>Status: <span id="status"></span></p>
+        <p>Status: <span id="Rstatus"></span></p>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+       document.addEventListener('DOMContentLoaded', function() {
             var trackForm = document.getElementById('trackForm');
             trackForm.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -154,10 +154,11 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        var status = response.Rstatus;
+                        var status = response.status; // Corrected property name
                         document.getElementById('status').textContent = status;
                     } else {
                         console.error('Error:', xhr.statusText);
+                        document.getElementById('status').textContent = 'Error fetching status';
                     }
                 }
             };
