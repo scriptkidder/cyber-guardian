@@ -157,13 +157,12 @@
     </div>
 
     <script>
-       
-           document.getElementById("trackForm").addEventListener("submit", function(event) {
+       document.getElementById("trackForm").addEventListener("submit", function(event) {
     event.preventDefault();
-    const complaintId = document.getElementById("complaintId").value;
+    const complaintId = document.getElementById("ComplaintId").value;
 
     // Send request to server to fetch status
-    fetch("http://localhost:8000/status?id=" + complaintId)
+    fetch("http://localhost:8000/status?id=" + ComplaintId)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Failed to fetch status");
@@ -172,11 +171,11 @@
         })
         .then(data => {
             // Update UI with status
-            const statusElement = document.getElementById("status");
-            if (data.status) {
-                statusElement.textContent = data.status;
+            const statusElement = document.getElementById("Status");
+            if (data.Status) {
+                statusElement.textContent = data.Status;
                 statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
-                statusElement.classList.add(data.status.toLowerCase());
+                statusElement.classList.add(data.Status.toLowerCase());
             } else {
                 console.error("Status information is undefined");
                 statusElement.textContent = "Error: Status information is unavailable.";
@@ -186,7 +185,7 @@
 
             const firstStatusElement = document.querySelector("#statusContainer .statusItem:first-child");
             const currentStatusElement = document.querySelector(".statusItem.active");
-            const newStatusElement = document.querySelector(".statusItem." + (data.status ? data.status.toLowerCase() : ""));
+            const newStatusElement = data.Status ? document.querySelector(".statusItem." + data.Status.toLowerCase()) : null;
 
             if (currentStatusElement && newStatusElement && currentStatusElement !== newStatusElement) {
                 flickerDottedLine(firstStatusElement.nextElementSibling, newStatusElement.nextElementSibling);
@@ -202,7 +201,7 @@
         })
         .catch(error => {
             console.error("Error fetching status:", error);
-            const statusElement = document.getElementById("status");
+            const statusElement = document.getElementById("Status");
             statusElement.textContent = "Error fetching status";
             statusElement.classList.remove("received", "processing", "investigating", "resolved", "closed");
             statusElement.classList.add("error");
@@ -210,6 +209,8 @@
 });
 
 function flickerDottedLine(startLine, endLine) {
+    if (!startLine || !endLine) return;
+
     let line = startLine;
     const flickerInterval = setInterval(() => {
         line.style.borderStyle = "dotted";
