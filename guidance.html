@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Guidance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black */
+            color: #fff; /* White text */
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in; /* Add fade-in animation */
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2 {
+            color: #1e90ff; /* Dark blue */
+            border-bottom: 2px solid #fff; /* White border bottom */
+            padding-bottom: 5px; /* Add some padding below the text */
+            font-weight: bold; /* Make the text bold */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        .guidance-section {
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease-in; /* Add fade-in animation */
+        }
+
+        .guidance-section p {
+            margin-bottom: 10px;
+        }
+
+        .guidance-section ul {
+            padding-left: 20px; /* Indent the list items */
+        }
+
+        select, option {
+            color: #ede7e7; /* White text */
+            background-color: #070747; /* Dark blue */
+            border: 1px solid #080536; /* Lighter blue */
+            border-radius: 4px;
+            padding: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+
+        select:hover, option:hover {
+            background-color: #17202a; /* Darker blue */
+        }
+
+        button {
+            background-color: #003366; /* Dark blue */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Smooth background color transition */
+        }
+
+        button:hover {
+            background-color: #004080; /* Slightly lighter blue */
+        }
+
+        button:active {
+            background-color: #00264d; /* Darker blue */
+        }
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1, h2 {
+                font-size: 24px;
+            }
+
+            .guidance-section {
+                margin-bottom: 20px;
+            }
+
+            select, option, button {
+                padding: 8px;
+            }
+        }
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Get Guidance</h1>
+        <div class="guidance-section">
+            <h2>Protect Your Personal Information</h2>
+            <p>Here are some tips to protect your personal information online:</p>
+            <ul>
+                <li>Use strong, unique passwords for each account</li>
+                <li>Avoid sharing personal information on social media</li>
+                <li>Enable two-factor authentication whenever possible</li>
+            </ul>
+        </div>
+        <div class="guidance-section">
+            <h2>Recognize Phishing Attempts</h2>
+            <p>Learn how to recognize and avoid phishing attempts:</p>
+            <ul>
+                <li>Check for suspicious email addresses and URLs</li>
+                <li>Avoid clicking on links or downloading attachments from unknown sources</li>
+                <li>Double-check the legitimacy of requests for personal or financial information</li>
+            </ul>
+        </div>
+        <div class="guidance-section">
+            <h2>Report Suspicious Activity</h2>
+            <p>If you suspect that you're a victim of cybercrime or encounter suspicious activity online, report it to the appropriate authorities:</p>
+            <ul>
+                <li>Contact your local law enforcement agency</li>
+                <li>File a report with the Internet Crime Complaint Center (IC3)</li>
+                <li>Alert the relevant online service providers or platforms</li>
+            </ul>
+        </div>
+        <div class="guidance-section">
+            <h2>Question and Answers</h2>
+            <p>Choose a topic from the dropdown menu below to find answers to common questions:</p>
+            <select id="question-dropdown">
+                <option value="1">How can I protect my computer from malware?</option>
+                <option value="2">What should I do if I receive a suspicious email?</option>
+                <option value="3">How do I recognize a phishing website?</option>
+            </select>
+            <div id="answer-container">
+                <!-- Answer content will be dynamically added here based on selected question -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('question-dropdown').addEventListener('change', function() {
+            const selectedOption = this.value;
+            const answerContainer = document.getElementById('answer-container');
+            
+            // Clear previous answer content
+            answerContainer.innerHTML = '';
+
+            // Display answer based on selected question
+            switch(selectedOption) {
+                case '1':
+                    answerContainer.innerHTML = `
+                        <p>Protecting your computer from malware involves:</p>
+                        <ul>
+                            <li>Installing reputable antivirus software</li>
+                            <li>Keeping your operating system and software updated</li>
+                            <li>Avoiding suspicious websites and downloads</li>
+                            <li>Regularly scanning your computer for malware</li>
+                        </ul>
+                    `;
+                    break;
+                case '2':
+                    answerContainer.innerHTML = `
+                        <p>If you receive a suspicious email, you should:</p>
+                        <ul>
+                            <li>Avoid clicking on any links or downloading attachments</li>
+                            <li>Verify the sender's email address and the content of the email</li>
+                            <li>Delete the email and report it as spam or phishing if necessary</li>
+                        </ul>
+                    `;
+                    break;
+                case '3':
+                    answerContainer.innerHTML = `
+                        <p>Recognizing a phishing website involves:</p>
+                        <ul>
+                            <li>Checking for misspelled URLs or domains</li>
+                            <li>Examining the website for poor grammar or design</li>
+                            <li>Avoiding entering personal or financial information on suspicious sites</li>
+                        </ul>
+                    `;
+                    break;
+                default:
+                    answerContainer.innerHTML = `<p>Select a question to view the answer.</p>`;
+            }
+        });
+    </script>
+</body>
+</html>
