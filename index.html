@@ -515,6 +515,50 @@ img {
 }
 
 /* Add additional styling as needed */
+/* Additional CSS for chatbot circle */
+#chatbotContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+#chatbotCircle {
+    background-color: #15202B;
+    color: #58a6ff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: pulse 2s infinite; /* Animation for continuous pulsating effect */
+}
+
+#chatbotCircle:hover {
+    background-color: #0d1117;
+    transform: scale(1.1);
+}
+
+#chatbotIcon {
+    font-size: 24px;
+}
+
+/* Animation keyframes for the chatbot circle */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+        /* Your existing styles */
     </style>
 </head>
 <body>
@@ -583,6 +627,12 @@ img {
                 <li>Emerging Technologies: Explore the impact of emerging technologies on cybersecurity and how to adapt to new challenges.</li>
             </ul>
         </section>
+          <!-- Chatbot Circle -->
+<div id="chatbotContainer">
+    <a href="https://www.blackbox.ai/agent/cyberbuddyPTQwWln" target="_blank" id="chatbotCircle">
+        <i class="fas fa-comments" id="chatbotIcon"></i>
+    </a>
+</div>
     </main>
     <footer>
         <p>&copy; 2023 Cyber Guardian. All rights reserved.</p>
@@ -612,6 +662,13 @@ function showSlides() {
 
 // Initialize the slideshow
 showSlides();
+// JavaScript to handle chatbot circle click animation
+document.getElementById('chatbotCircle').addEventListener('click', function() {
+    var circle = document.getElementById('chatbotContainer');
+    circle.style.transition = 'transform 0.5s ease';
+    circle.style.transform = 'translate(200%, -200%)'; // Move to top right corner
+});
+
     </script>
 </body>
 </html>
