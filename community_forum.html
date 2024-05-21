@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Forum</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black */
+            color: #fff; /* White text */
+            padding: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            padding: 20px;
+            background: #0b0c10; /* Darker blue */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #003366; /* Dark blue */
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #0b0c10; /* Darker blue */
+            color: #ffffff; /* White text */
+            margin-bottom: 15px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #003366; /* Dark blue */
+            color: #ffffff; /* White text */
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #004080; /* Darker blue */
+        }
+
+        button:active {
+            background: #00264d; /* Darkest blue */
+        }
+
+        #message {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .review {
+            margin-top: 20px;
+            padding: 10px;
+            background: #17202a; /* Darker blue */
+            border-radius: 8px;
+            color: #fff; /* White text */
+        }
+
+        .review {
+            margin-top: 20px;
+            padding: 10px;
+            background: #17202a; /* Darker blue */
+            border-radius: 8px;
+            color: #ffffff; /* White text */
+        }
+        
+        
+        .review p {
+            margin-bottom: 5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Community Forum</h1>
+        <form id="review-form">
+            <div class="form-group">
+                <label for="complaint-id">Complaint ID:</label>
+                <input type="text" id="complaint-id" name="complaint-id" required>
+            </div>
+            <div class="form-group">
+                <label for="review">Your Review:</label>
+                <textarea id="review" name="review" required></textarea>
+            </div>
+            <button type="submit">Submit Review</button>
+            <div id="message"></div>
+        </form>
+
+        <div id="reviews"></div>
+    </div>
+
+    <script>
+        document.getElementById('review-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const complaintId = document.getElementById('complaint-id').value;
+            const review = document.getElementById('review').value;
+            const message = document.getElementById('message');
+
+            fetch('/submit_review', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ complaint_id: complaintId, review: review })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    message.textContent = 'Review submitted successfully!';
+                    message.style.color = '#45A29E'; /* Lighter blue */
+                    displayReviews(); // Refresh reviews
+                } else {
+                    message.textContent = data.error;
+                    message.style.color = '#FF6B6B'; /* Red */
+                }
+            })
+            .catch(error => {
+                message.textContent = 'An error occurred. Please try again.';
+                message.style.color = '#FF6B6B'; /* Red */
+            });
+        });
+
+        function displayReviews() {
+            fetch('/get_reviews')
+            .then(response => response.json())
+            .then(data => {
+                const reviewsContainer = document.getElementById('reviews');
+                reviewsContainer.innerHTML = ''; // Clear previous reviews
+
+                data.reviews.forEach(review => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.classList.add('review');
+                    reviewDiv.innerHTML = `
+                        <h3>${review.name}</h3>
+                        <p>Review: ${review.review}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewDiv);
+                });
+            });
+        }
+
+        // Display reviews when page loads
+        displayReviews();
+    </script>
+</body>
+</html>

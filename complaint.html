@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Crime Complaint Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            animation: fadeIn 1s ease;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        form {
+            max-width: 800px;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #003366;
+            background-color: #001a33;
+            animation: slideIn 1s ease;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff;
+            animation: fadeIn 1s ease;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        select,
+        textarea,
+        input[type="date"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 2px solid #003366;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            font-size: 16px;
+            animation: fadeIn 1s ease;
+        }
+
+        #complaintID {
+            grid-column: span 2;
+            padding: 10px;
+            border: 2px solid #003366;
+            border-radius: 5px;
+            background-color: #001a33;
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #001a33;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            animation: fadeIn 1s ease;
+        }
+
+        button:hover {
+            background-color: #004080;
+        }
+
+        button:active {
+            background-color: #00264d;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Cyber Crime Complaint Form</h1>
+    <form id="complaintForm">
+        <label for="crimeType">Type of Cyber Crime:</label>
+        <select id="crimeType" name="crimeType">
+            <option value="Phishing">Phishing</option>
+            <option value="Hacking">Hacking</option>
+            <option value="Identity Theft">Identity Theft</option>
+            <!-- Add more options as needed -->
+        </select>
+
+        <label for="city">City:</label>
+        <select id="city" name="city">
+            <option value="Jaipur">Jaipur</option>
+            <option value="Jodhpur">Jodhpur</option>
+            <option value="Udaipur">Udaipur</option>
+            <option value="Ajmer">Ajmer</option>
+            <option value="Kota">Kota</option>
+            <!-- Add more Rajasthan city options as needed -->
+        </select>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number">
+
+        <label for="victimName">Victim Name:</label>
+        <input type="text" id="victimName" name="victimName" placeholder="Enter your name">
+
+        <label for="victimEmail">Victim Email:</label>
+        <input type="email" id="victimEmail" name="victimEmail" placeholder="Enter your email">
+
+        <label for="date">Date of Crime:</label>
+        <input type="date" id="date" name="date">
+
+        <div id="complaintID" style="display: none;"></div>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script >document.getElementById("complaintForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const crimeType = document.getElementById("crimeType").value;
+        const city = document.getElementById("city").value;
+        const description = document.getElementById("description").value;
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        const victimName = document.getElementById("victimName").value;
+        const date = document.getElementById("date").value;
+    
+        // Basic validation
+        if (crimeType.trim() === "" || city.trim() === "" || description.trim() === "" || phoneNumber.trim() === "" || victimName.trim() === "" || date.trim() === "") {
+            alert("Please fill in all fields.");
+            return;
+        }
+    
+        // Send data to server
+        const formData = { crimeType, city, description, phoneNumber, victimName, date };
+        fetch("http://localhost:8000/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            const complaintId = data.complaint_id;
+    
+            // Create a custom notification box
+            const notificationBox = document.createElement("div");
+            notificationBox.classList.add("notification-box");
+            notificationBox.innerHTML = `
+                <div class="notification">
+                    <p>Complaint submitted successfully.</p>
+                    <p>Complaint ID: ${complaintId}</p>
+                    <button id="copyButton">Copy ID</button>
+                </div>
+            `;
+            document.body.appendChild(notificationBox);
+    
+            // Add copy functionality to the button
+            const copyButton = document.getElementById("copyButton");
+            copyButton.addEventListener("click", function() {
+                const tempInput = document.createElement("input");
+                tempInput.value = complaintId;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                alert("Complaint ID copied to clipboard.");
+            });
+    
+            // Reset form fields after a delay
+            setTimeout(() => {
+                document.getElementById("complaintForm").reset();
+                document.body.removeChild(notificationBox);
+            }, 5000); // Remove the notification box after 5 seconds
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Guardian</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-...." crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #15202B;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s;
+        }
+        
+        header {
+            background-color: #0d1117;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+            transition: transform 0.3s;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #58a6ff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        nav a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #0d1117;
+            transition: transform 0.5s;
+        }
+        
+        section:hover {
+            transform: scale(1.02);
+        }
+        
+        h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background-color: #58a6ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #005cc5;
+        }
+        
+        footer {
+            background-color: #0d1117;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        /* Your existing styles */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */
+        /* Existing styles */
+        
+        header h1 {
+            margin-bottom: 20px; /* Add margin-bottom to create space below the title */
+        }
+        
+        /* Additional styles for icons */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons and other elements */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */body {
+            font-family: Arial, sans-serif;
+            background-color: #15202B;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s;
+        }
+        
+        header {
+            background-color: #0d1117;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+            transition: transform 0.3s;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #58a6ff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        nav a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #0d1117;
+            transition: transform 0.5s;
+        }
+        
+        section:hover {
+            transform: scale(1.02);
+        }
+        
+        h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background-color: #58a6ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #005cc5;
+        }
+        
+        footer {
+            background-color: #0d1117;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        /* Your existing styles */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */
+        /* Existing styles */
+        
+        header h1 {
+            margin-bottom: 20px; /* Add margin-bottom to create space below the title */
+        }
+        
+        /* Additional styles for icons */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons and other elements */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */body {
+            font-family: Arial, sans-serif;
+            background-color: #15202B;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s;
+        }
+        
+        header {
+            background-color: #0d1117;
+            padding: 20px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+            transition: transform 0.3s;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        nav a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #58a6ff;
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out;
+        }
+        
+        nav a:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #0d1117;
+            transition: transform 0.5s;
+        }
+        
+        section:hover {
+            transform: scale(1.02);
+        }
+        
+        h2 {
+            color: #58a6ff;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background-color: #58a6ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #005cc5;
+        }
+        
+        footer {
+            background-color: #0d1117;
+            padding: 10px;
+            text-align: center;
+            transition: background-color 0.5s;
+        }
+        /* Your existing styles */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */
+        /* Existing styles */
+        
+        header h1 {
+            margin-bottom: 20px; /* Add margin-bottom to create space below the title */
+        }
+        
+        /* Additional styles for icons */
+        
+        nav a i {
+            margin-right: 5px;
+        }
+        
+        /* Additional styling for icons and other elements */
+        
+        footer p {
+            margin-top: 10px;
+        }
+        
+        /* Add more styles as needed */
+        
+        /* Global Styles */
+        body {
+            background-color: #00274E;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        header, main, footer {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        label {
+            margin-bottom: 5px;
+            color: #58a6ff; /* Matching the color in index.html */
+        }
+        
+        input {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%; /* Make inputs fill the width */
+        }
+        
+        button {
+            background-color: #009688;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #00796B;
+        }
+        
+        /* Additional Styles */
+        .main {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .complaint-id-form {
+            flex: 1;
+        }
+        
+        /* Animation Styles */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .animated {
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .delay-1s {
+            animation-delay: 1s;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background-color: #0d1117;
+            color: #ffffff;
+            text-align: center;
+            padding: 1em 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #15202B;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s;
+        }
+        /* Slideshow styling */
+.slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+}
+
+.mySlides {
+    display: none;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+/* Navigation dots styling */
+.dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+/* Add additional styling as needed */
+/* Additional CSS for chatbot circle */
+#chatbotContainer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+#chatbotCircle {
+    background-color: #15202B;
+    color: #58a6ff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, transform 0.3s;
+    animation: pulse 2s infinite; /* Animation for continuous pulsating effect */
+}
+
+#chatbotCircle:hover {
+    background-color: #0d1117;
+    transform: scale(1.1);
+}
+
+#chatbotIcon {
+    font-size: 24px;
+}
+
+/* Animation keyframes for the chatbot circle */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+        /* Your existing styles */
+    </style>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-shield-alt"></i> Cyber Guardian</h1>
+        <nav>
+            <ul>
+                <li><a href="complaint.html"><i class="fas fa-bug"></i> Report a Crime</a></li>
+                <li><a href="complaint_status.html"><i class="fas fa-check-circle"></i> Track Status</a></li>
+                <li><a href="community_forum.html"><i class="fas fa-comments"></i> Community Forum</a></li>
+                <li><a href="trackfunds.html"><i class="fas fa-money-bill-wave"></i> Track/Submit Funds</a></li>
+                <li><a href="recovery.html"><i class="fas fa-money-bill-wave"></i> recover Funds</a></li>
+                <li><a href="guidance.html"><i class="fas fa-question-circle"></i> Get Guidance</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Photo slideshow container -->
+       <!-- Photo slideshow container -->
+<div class="slideshow-container">
+    <!-- Slides -->
+    <div class="mySlides fade">
+        <img src="https://police.rajasthan.gov.in/uploads/ABHAY_COMMAND_CENTER_003352ae31.jpeg" alt="Slide 1">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="https://police.rajasthan.gov.in/uploads/Nirbhya_Police_e7cac09d18.jpg" alt="Slide 2">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="https://police.rajasthan.gov.in/uploads/Prade_64db4119ab.jpeg" alt="Slide 3">
+    </div>
+
+    <div class="mySlides fade">
+        <img src="https://police.rajasthan.gov.in/uploads/Cyber_Cirme_Award_Event_32be41e087.jpeg" alt="Slide 4">
+    </div>
+
+    <!-- Add more slides as needed -->
+</div>
+
+            <!-- Add more slides as needed -->
+
+            <!-- Navigation dots -->
+            <div style="text-align:center">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <!-- Add more dots corresponding to the number of slides -->
+            </div>
+        </div>
+
+        <section class="intro-section">
+            <h2>Protecting What Matters Most</h2>
+            <p>At Cyber Guardian, we understand the importance of safeguarding your online presence. Explore our comprehensive cybersecurity solutions tailored to keep you and your data secure.</p>
+        </section>
+
+        <section class="features-section">
+            <h2>Key Insights</h2>
+            <ul>
+                <li>Cyber Threat Landscape: Stay informed about the latest cybersecurity threats and trends affecting individuals and organizations.</li>
+                <li>Best Practices: Discover essential cybersecurity best practices to adopt in your daily digital activities.</li>
+                <li>Data Privacy: Learn how to protect your personal and sensitive information in an increasingly interconnected world.</li>
+                <li>Digital Hygiene: Understand the importance of maintaining good digital hygiene for a safer online experience.</li>
+                <li>Emerging Technologies: Explore the impact of emerging technologies on cybersecurity and how to adapt to new challenges.</li>
+            </ul>
+        </section>
+          <!-- Chatbot Circle -->
+<div id="chatbotContainer">
+    <a href="https://www.blackbox.ai/agent/cyberbuddyPTQwWln" target="_blank" id="chatbotCircle">
+        <i class="fas fa-comments" id="chatbotIcon"></i>
+    </a>
+</div>
+    </main>
+    <footer>
+        <p>&copy; 2023 Cyber Guardian. All rights reserved.</p>
+    </footer>
+    <script>
+        // Slideshow functionality
+let slideIndex = 0;
+
+function showSlides() {
+    let i;
+    const slides = document.getElementsByClassName("mySlides");
+    const dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+        slideIndex = 1;
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+    setTimeout(showSlides, 2000); // Change slide every 2 seconds (adjust as needed)
+}
+
+// Initialize the slideshow
+showSlides();
+// JavaScript to handle chatbot circle click animation
+document.getElementById('chatbotCircle').addEventListener('click', function() {
+    var circle = document.getElementById('chatbotContainer');
+    circle.style.transition = 'transform 0.5s ease';
+    circle.style.transform = 'translate(200%, -200%)'; // Move to top right corner
+});
+
+    </script>
+</body>
+</html>

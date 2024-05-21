@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Status Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            padding: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        #statusContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .statusItem {
+            position: relative;
+            text-align: center;
+            width: 120px;
+            padding: 10px;
+            border: 2px solid #003366;
+            border-radius: 5px;
+            background-color: #001a33;
+            color: #fff;
+            margin: 0 10px;
+            animation: fadeIn 1s ease;
+        }
+
+        .statusItem.active {
+            box-shadow: 0 0 10px 5px #00f; /* Change this to your desired active status indicator style */
+        }
+
+        .statusLine {
+            flex: 1;
+            height: 4px; /* Increased height of the dotted line */
+            background-color: transparent;
+            border-top: 4px dotted #003366; /* Increased thickness and size of the dots */
+            animation: flicker 2s infinite alternate; /* Added flicker animation */
+        }
+
+        @keyframes flicker {
+            from {
+                opacity: 0.2;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 250px;
+            padding: 10px;
+            border: 2px solid #003366;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #003366;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004080;
+        }
+
+        button:active {
+            background-color: #00264d;
+        }
+
+        #statusInfo {
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .statusItem {
+                width: 100px;
+                padding: 5px;
+                margin: 0 5px;
+            }
+
+            .statusLine {
+                height: 2px;
+                border-top: 2px dotted #003366;
+            }
+
+            input[type="text"] {
+                width: 100%;
+                padding: 8px;
+            }
+
+            button {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Complaint Status Tracker</h1>
+    <div id="statusContainer">
+        <div class="statusItem received">Received</div>
+        <div class="statusLine"></div>
+        <div class="statusItem processing">Processing</div>
+        <div class="statusLine"></div>
+        <div class="statusItem investigating">Investigating</div>
+        <div class="statusLine"></div>
+        <div class="statusItem resolved">Resolved</div>
+        <div class="statusLine"></div>
+        <div class="statusItem closed">Closed</div>
+    </div>
+    <form id="trackForm">
+        <label for="complaintId">Enter Complaint ID:</label>
+        <input type="text" id="complaintId" name="complaintId" placeholder="e.g., CID-20240503153000">
+        <button type="submit">Track</button>
+    </form>
+    <div id="statusInfo">
+        <p>Status: <span id="status"></span></p>
+    </div>
+
+    <script>
+        document.getElementById("trackForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const complaintId = document.getElementById("complaintId").value;
+
+            // Send request to server to fetch status
+            fetch("http://localhost:8000/status?id=" + complaintId)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch status");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Update UI with status
+                    const firstStatusElement = document.querySelector("#statusContainer .statusItem:first-child");
+                    const currentStatusElement = document.querySelector(".statusItem.active");
+                    const newStatusElement = document.querySelector(".statusItem." + data.status.toLowerCase());
+
+                    // Update status text
+                    const statusElement = document.getElementById("status");
+                    statusElement.textContent = data.status;
+                    statusElement.style.color = data.status === "Received" ? "green" : "red";
+
+                    if (currentStatusElement && newStatusElement && currentStatusElement !== newStatusElement) {
+                        flickerDottedLine(firstStatusElement.nextElementSibling, newStatusElement.nextElementSibling);
+                    }
+
+                    document.querySelectorAll(".statusItem").forEach(item => {
+                        item.classList.remove("active");
+                    });
+
+                    newStatusElement.classList.add("active");
+                })
+                .catch(error => {
+                    console.error("Error fetching status:", error);
+                });
+        });
+
+        function flickerDottedLine(startLine, endLine) {
+            let line = startLine;
+            const flickerInterval = setInterval(() => {
+                line.style.borderStyle = "dotted";
+                line.style.borderColor = "yellow";
+
+                setTimeout(() => {
+                    line.style.borderStyle = "solid";
+                    line.style.borderColor = "#003366";
+                }, 500); // Adjust flicker duration as desired
+
+                if (line === endLine) {
+                    clearInterval(flickerInterval);
+                } else {
+                    line = line.nextElementSibling;
+                }
+            }, 1000); // Adjust flicker speed as desired
+        }
+    </script>
+</body>
+</html>
